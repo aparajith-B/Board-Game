@@ -70,7 +70,7 @@
     margin-top:10px;
     padding:10px 22px;
     background:transparent;
-    color:white;
+    color:black;
     border:2px solid white;
     border-radius:25px;
     font-size:14px;
@@ -95,14 +95,33 @@
 <div class="menu" id="menu">
     <div class="menu-box">
         <h1>REFLEX BATTLE</h1>
-        <button onclick="startGame()">START</button>
+        <p>Select Level</p>
+
+<select id="levelSelect">
+    <option value="1">Level 1 (Easy)</option>
+    <option value="2">Level 2</option>
+    <option value="3">Level 3</option>
+    <option value="4">Level 4</option>
+    <option value="5">Level 5 (Medium)</option>
+    <option value="6">Level 6</option>
+    <option value="7">Level 7</option>
+    <option value="8">Level 8</option>
+    <option value="9">Level 9</option>
+    <option value="10">Level 10 (Insane)</option>
+</select>
+
+<button onclick="startGame()">START</button>
+
         <button class="github-btn" onclick="openGitHub()">GitHub</button>
         <p>Created by Aparajith</p>
     </div>
 </div>
 
 <!-- GAME -->
-<h1 id="gameTitle" style="display:none;">REFLEX BATTLE</h1>
+
+<h1 id="gameTitle" style="display:none;">
+REFLEX BATTLE - LEVEL <span id="levelNum">1</span>
+</h1>
 
 <div class="arena" id="gameArea" style="display:none;">
 
@@ -122,28 +141,12 @@
 
 </div>
 
-<script src="game.js"></script>
 
-<script>
-function startGame(){
-    document.getElementById("menu").style.display="none";
-    document.getElementById("gameArea").style.display="flex";
-    document.getElementById("gameTitle").style.display="block";
-    document.getElementById("leaveBtn").style.display="block";
-}
 
-function leaveGame(){
-    document.getElementById("menu").style.display="flex";
-    document.getElementById("gameArea").style.display="none";
-    document.getElementById("gameTitle").style.display="none";
-    document.getElementById("leaveBtn").style.display="none";
-    location.reload();
-}
 
-function openGitHub(){
-    window.open("https://github.com/aparajith-B/Board-Game.git");
-}
-</script>
+<script src="game.js"></script>	
+
+
 
 </body>
 </html>
