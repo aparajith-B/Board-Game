@@ -2,11 +2,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Reflex Battle</title>
+<title>Reaction Time Lab</title>
+
+<div id="winCounter">
+P1 Wins: <span id="p1Wins">0</span> |
+P2 Wins: <span id="p2Wins">0</span>
+</div>
+
 
 <link rel="stylesheet" href="gameBoard.css">
 
 <style>
+
 /* MENU STYLE */
 .menu{
     position:fixed;
@@ -30,7 +37,8 @@
     letter-spacing:4px;
 }
 
-.menu-box button{
+/* START BUTTON */
+.start-btn{
     margin-top:20px;
     padding:15px 40px;
     font-size:18px;
@@ -40,7 +48,51 @@
     cursor:pointer;
 }
 
-.menu-box button:hover{
+.start-btn:hover{
+    background:#00cccc;
+}
+
+/* LEVEL BOX */
+.level-box{
+    margin-top:15px;
+    display:none;
+}
+
+/* LEVEL BUTTONS */
+.level-btn{
+    width:32px;
+    height:32px;
+    margin:4px;
+    border-radius:50%;
+    border:none;
+    background:#222;
+    color:white;
+    cursor:pointer;
+    font-size:13px;
+}
+
+.level-btn:hover{
+    background:#00ffff;
+    color:black;
+}
+
+.level-btn.active{
+    background:#00ffff;
+    color:black;
+}
+
+/* PLAY BUTTON */
+.play-btn{
+    margin-top:12px;
+    padding:10px 30px;
+    font-size:16px;
+    border:none;
+    border-radius:25px;
+    background:#00ffff;
+    cursor:pointer;
+}
+
+.play-btn:hover{
     background:#00cccc;
 }
 
@@ -57,12 +109,6 @@
     font-size:14px;
     cursor:pointer;
     display:none;
-    transition:0.3s;
-}
-
-.leave-btn:hover{
-    background:#00ffff;
-    color:black;
 }
 
 /* GITHUB BUTTON */
@@ -70,51 +116,56 @@
     margin-top:10px;
     padding:10px 22px;
     background:transparent;
-    color:black;
+    color:white;
     border:2px solid white;
     border-radius:25px;
     font-size:14px;
     cursor:pointer;
-    transition:0.3s;
 }
 
-.github-btn:hover{
-    background:white;
-    color:black;
-}
 </style>
-
 </head>
 
 <body>
 
-<!-- LEAVE BUTTON -->
+<!-- LEAVE -->
 <button class="leave-btn" id="leaveBtn" onclick="leaveGame()">Leave</button>
 
-<!-- MAIN MENU -->
+<!-- MENU -->
 <div class="menu" id="menu">
-    <div class="menu-box">
-        <h1>REFLEX BATTLE</h1>
-        <p>Select Level</p>
+<div class="menu-box">
 
-<select id="levelSelect">
-    <option value="1">Level 1 (Easy)</option>
-    <option value="2">Level 2</option>
-    <option value="3">Level 3</option>
-    <option value="4">Level 4</option>
-    <option value="5">Level 5 (Medium)</option>
-    <option value="6">Level 6</option>
-    <option value="7">Level 7</option>
-    <option value="8">Level 8</option>
-    <option value="9">Level 9</option>
-    <option value="10">Level 10 (Insane)</option>
-</select>
+<h1>Reaction Time Lab</h1>
 
-<button onclick="startGame()">START</button>
+<button class="start-btn" onclick="showLevels()">START</button>
 
-        <button class="github-btn" onclick="openGitHub()">GitHub</button>
-        <p>Created by Aparajith</p>
-    </div>
+<!-- LEVELS -->
+<div class="level-box" id="levelBox">
+
+<p>SELECT LEVEL</p>
+
+<div class="levels">
+<button class="level-btn active" onclick="setLevel(1, this)">1</button>
+<button class="level-btn" onclick="setLevel(2, this)">2</button>
+<button class="level-btn" onclick="setLevel(3, this)">3</button>
+<button class="level-btn" onclick="setLevel(4, this)">4</button>
+<button class="level-btn" onclick="setLevel(5, this)">5</button>
+<button class="level-btn" onclick="setLevel(6, this)">6</button>
+<button class="level-btn" onclick="setLevel(7, this)">7</button>
+<button class="level-btn" onclick="setLevel(8, this)">8</button>
+<button class="level-btn" onclick="setLevel(9, this)">9</button>
+<button class="level-btn" onclick="setLevel(10, this)">10</button>
+</div>
+
+<button class="play-btn" onclick="startGame()">PLAY</button>
+
+</div>
+
+<button class="github-btn" onclick="openGitHub()">GitHub</button>
+
+<p>Created by Aparajith's Team</p>
+
+</div>
 </div>
 
 <!-- GAME -->
@@ -123,30 +174,28 @@
 REFLEX BATTLE - LEVEL <span id="levelNum">1</span>
 </h1>
 
+<h2 id="timer" style="display:none;">01:30</h2>
+
+
 <div class="arena" id="gameArea" style="display:none;">
 
-    <div class="side left">
-        <h2>PLAYER 1</h2>
-        <div class="target" id="p1Target"></div>
-        <p>Score: <span id="p1Score">0</span></p>
-        <p>Press F</p>
-    </div>
+<div class="side left">
+<h2>PLAYER 1</h2>
+<div class="target" id="p1Target"></div>
+<p>Score: <span id="p1Score">0</span></p>
+<p>Press F</p>
+</div>
 
-    <div class="side right">
-        <h2>PLAYER 2</h2>
-        <div class="target" id="p2Target"></div>
-        <p>Score: <span id="p2Score">0</span></p>
-        <p>Press L</p>
-    </div>
+<div class="side right">
+<h2>PLAYER 2</h2>
+<div class="target" id="p2Target"></div>
+<p>Score: <span id="p2Score">0</span></p>
+<p>Press L</p>
+</div>
 
 </div>
 
-
-
-
-<script src="game.js"></script>	
-
-
+<script src="game.js"></script>
 
 </body>
 </html>
