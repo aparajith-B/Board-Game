@@ -7,7 +7,7 @@ body{
     overflow:hidden;
 }
 
-/* Title */
+
 h1{
     margin:20px;
     letter-spacing:4px;
@@ -15,13 +15,12 @@ h1{
     text-shadow:0 0 10px cyan;
 }
 
-/* Main split area */
 .arena{
     display:flex;
     height:80vh;
 }
 
-/* Each player side */
+
 .side{
     flex:1;
     border:2px solid #222;
@@ -32,18 +31,18 @@ h1{
     background:linear-gradient(180deg,#0a0a0a,#000);
 }
 
-/* Divider line */
+
 .left{
     border-right:3px solid #00ffff;
 }
 
-/* Player titles */
+
 .side h2{
     letter-spacing:2px;
     text-shadow:0 0 8px cyan;
 }
 
-/* Target circle */
+
 .target{
     width:140px;
     height:140px;
@@ -73,19 +72,19 @@ h1{
 }
 
 
-/* Pulse animation */
+
 @keyframes pulse{
     from{ transform:scale(1); }
     to{ transform:scale(1.08); }
 }
 
-/* Score text */
+
 p{
     font-size:18px;
     letter-spacing:1px;
 }
 
-/* Keys hint */
+
 p:last-child{
     opacity:0.7;
     font-size:14px;
