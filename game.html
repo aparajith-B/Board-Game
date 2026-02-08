@@ -3,197 +3,94 @@
 <head>
 <meta charset="UTF-8">
 <title>Reaction Time Lab</title>
+<link rel="stylesheet" href="gameBoard.css">
+<style>
+body{
+    margin:0;
+    background:radial-gradient(circle at top, #111 0%, #000 60%);
+    color:white;
+    font-family:Arial, Helvetica, sans-serif;
+    text-align:center;
+    overflow:hidden;
+}
+h1{margin:20px;letter-spacing:4px;font-weight:600;text-shadow:0 0 10px cyan;}
+.arena{display:flex;height:80vh;}
+.side{flex:1;border:2px solid #222;display:flex;flex-direction:column;justify-content:space-evenly;align-items:center;background:linear-gradient(180deg,#0a0a0a,#000);}
+.left{border-right:3px solid #00ffff;}
+.side h2{letter-spacing:2px;text-shadow:0 0 8px cyan;}
+.target{width:140px;height:140px;background:#ff0033;border-radius:50%;box-shadow:0 0 15px #ff0033,0 0 30px #ff0033;display:none;animation:pulse 0.6s infinite alternate;}
+@keyframes pulse{from{transform:scale(1);}to{transform:scale(1.08);}}
+#timer{text-align:center;font-size:28px;margin-top:-10px;color:#00ffff;letter-spacing:2px;}
+#winCounter{position:fixed;top:20px;right:20px;font-size:14px;color:#00ffff;}
+p{font-size:18px;letter-spacing:1px;}
+p:last-child{opacity:0.7;font-size:14px;}
+.menu{position:fixed;top:0;left:0;width:100%;height:100%;background:#111;display:flex;justify-content:center;align-items:center;}
+.menu-box{text-align:center;color:white;}
+.menu-box h1{font-size:48px;letter-spacing:4px;}
+.start-btn{margin-top:20px;padding:15px 40px;font-size:18px;border:none;border-radius:30px;background:#00ffff;cursor:pointer;}
+.start-btn:hover{background:#00cccc;}
+.level-box{margin-top:15px;display:none;}
+.level-btn{width:32px;height:32px;margin:4px;border-radius:50%;border:none;background:#222;color:white;cursor:pointer;font-size:13px;}
+.level-btn:hover{background:#00ffff;color:black;}
+.level-btn.active{background:#00ffff;color:black;}
+.play-btn{margin-top:12px;padding:10px 30px;font-size:16px;border:none;border-radius:25px;background:#00ffff;cursor:pointer;}
+.play-btn:hover{background:#00cccc;}
+.leave-btn{position:fixed;top:20px;left:20px;padding:10px 22px;background:transparent;color:white;border:2px solid #00ffff;border-radius:25px;font-size:14px;cursor:pointer;display:none;}
+.github-btn{margin-top:10px;padding:10px 22px;background:transparent;color:white;border:2px solid white;border-radius:25px;font-size:14px;cursor:pointer;}
+</style>
+</head>
+<body>
 
 <div id="winCounter">
 P1 Wins: <span id="p1Wins">0</span> |
 P2 Wins: <span id="p2Wins">0</span>
 </div>
 
-
-<link rel="stylesheet" href="gameBoard.css">
-
-<style>
-
-.menu{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:#111;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-
-.menu-box{
-    text-align:center;
-    color:white;
-}
-
-.menu-box h1{
-    font-size:48px;
-    letter-spacing:4px;
-}
-
-
-.start-btn{
-    margin-top:20px;
-    padding:15px 40px;
-    font-size:18px;
-    border:none;
-    border-radius:30px;
-    background:#00ffff;
-    cursor:pointer;
-}
-
-.start-btn:hover{
-    background:#00cccc;
-}
-
-/* LEVEL BOX */
-.level-box{
-    margin-top:15px;
-    display:none;
-}
-
-
-.level-btn{
-    width:32px;
-    height:32px;
-    margin:4px;
-    border-radius:50%;
-    border:none;
-    background:#222;
-    color:white;
-    cursor:pointer;
-    font-size:13px;
-}
-
-.level-btn:hover{
-    background:#00ffff;
-    color:black;
-}
-
-.level-btn.active{
-    background:#00ffff;
-    color:black;
-}
-
-.play-btn{
-    margin-top:12px;
-    padding:10px 30px;
-    font-size:16px;
-    border:none;
-    border-radius:25px;
-    background:#00ffff;
-    cursor:pointer;
-}
-
-.play-btn:hover{
-    background:#00cccc;
-}
-
-
-.leave-btn{
-    position:fixed;
-    top:20px;
-    left:20px;
-    padding:10px 22px;
-    background:transparent;
-    color:white;
-    border:2px solid #00ffff;
-    border-radius:25px;
-    font-size:14px;
-    cursor:pointer;
-    display:none;
-}
-
-
-.github-btn{
-    margin-top:10px;
-    padding:10px 22px;
-    background:transparent;
-    color:white;
-    border:2px solid white;
-    border-radius:25px;
-    font-size:14px;
-    cursor:pointer;
-}
-
-</style>
-</head>
-
-<body>
-
-<!-- LEAVE -->
 <button class="leave-btn" id="leaveBtn" onclick="leaveGame()">Leave</button>
 
-<!-- MENU -->
 <div class="menu" id="menu">
 <div class="menu-box">
-
 <h1>Reaction Time Lab</h1>
-
 <button class="start-btn" onclick="showLevels()">START</button>
-
-<!-- LEVELS -->
 <div class="level-box" id="levelBox">
-
 <p>SELECT LEVEL</p>
-
 <div class="levels">
-<button class="level-btn active" onclick="setLevel(1, this)">1</button>
-<button class="level-btn" onclick="setLevel(2, this)">2</button>
-<button class="level-btn" onclick="setLevel(3, this)">3</button>
-<button class="level-btn" onclick="setLevel(4, this)">4</button>
-<button class="level-btn" onclick="setLevel(5, this)">5</button>
-<button class="level-btn" onclick="setLevel(6, this)">6</button>
-<button class="level-btn" onclick="setLevel(7, this)">7</button>
-<button class="level-btn" onclick="setLevel(8, this)">8</button>
-<button class="level-btn" onclick="setLevel(9, this)">9</button>
-<button class="level-btn" onclick="setLevel(10, this)">10</button>
+<button class="level-btn active" onclick="setLevel(1,this)">1</button>
+<button class="level-btn" onclick="setLevel(2,this)">2</button>
+<button class="level-btn" onclick="setLevel(3,this)">3</button>
+<button class="level-btn" onclick="setLevel(4,this)">4</button>
+<button class="level-btn" onclick="setLevel(5,this)">5</button>
+<button class="level-btn" onclick="setLevel(6,this)">6</button>
+<button class="level-btn" onclick="setLevel(7,this)">7</button>
+<button class="level-btn" onclick="setLevel(8,this)">8</button>
+<button class="level-btn" onclick="setLevel(9,this)">9</button>
+<button class="level-btn" onclick="setLevel(10,this)">10</button>
 </div>
-
 <button class="play-btn" onclick="startGame()">PLAY</button>
-
 </div>
-
 <button class="github-btn" onclick="openGitHub()">GitHub</button>
-
 <p>Created by Aparajith's Team</p>
-
 </div>
 </div>
 
-<!-- GAME -->
-
-<h1 id="gameTitle" style="display:none;">
-REFLEX BATTLE - LEVEL <span id="levelNum">1</span>
-</h1>
-
+<h1 id="gameTitle" style="display:none;">REFLEX BATTLE - LEVEL <span id="levelNum">1</span></h1>
 <h2 id="timer" style="display:none;">01:30</h2>
 
-
-<div class="arena" id="gameArea" style="display:none;">
-
+<div class="arena" id="gameArea">
 <div class="side left">
 <h2>PLAYER 1</h2>
 <div class="target" id="p1Target"></div>
 <p>Score: <span id="p1Score">0</span></p>
 <p>Press F</p>
 </div>
-
 <div class="side right">
 <h2>PLAYER 2</h2>
 <div class="target" id="p2Target"></div>
 <p>Score: <span id="p2Score">0</span></p>
 <p>Press L</p>
 </div>
-
 </div>
 
 <script src="game.js"></script>
-
 </body>
 </html>
