@@ -1,15 +1,18 @@
 body{
     margin:0;
-    background:#111;
+    background:radial-gradient(circle at top, #111 0%, #000 60%);
     color:white;
-    font-family:Arial;
+    font-family:Arial, Helvetica, sans-serif;
     text-align:center;
+    overflow:hidden;
 }
 
 /* Title */
 h1{
     margin:20px;
-    letter-spacing:3px;
+    letter-spacing:4px;
+    font-weight:600;
+    text-shadow:0 0 10px cyan;
 }
 
 /* Main split area */
@@ -21,24 +24,69 @@ h1{
 /* Each player side */
 .side{
     flex:1;
-    border:2px solid #444;
+    border:2px solid #222;
     display:flex;
     flex-direction:column;
     justify-content:space-evenly;
     align-items:center;
+    background:linear-gradient(180deg,#0a0a0a,#000);
 }
 
 /* Divider line */
 .left{
-    border-right:4px solid white;
+    border-right:3px solid #00ffff;
+}
+
+/* Player titles */
+.side h2{
+    letter-spacing:2px;
+    text-shadow:0 0 8px cyan;
 }
 
 /* Target circle */
 .target{
     width:140px;
     height:140px;
-    background:red;
+    background:#ff0033;
     border-radius:50%;
-    box-shadow:0 0 20px red;
-    display:none;   /* TEMP: force visible */
+    box-shadow:
+        0 0 15px #ff0033,
+        0 0 30px #ff0033;
+    display:none;
+    animation:pulse 0.6s infinite alternate;
+}
+
+#timer{
+    text-align:center;
+    font-size:28px;
+    margin-top:-10px;
+    color:#00ffff;
+    letter-spacing:2px;
+}
+
+#winCounter{
+    position:fixed;
+    top:20px;
+    right:20px;
+    font-size:14px;
+    color:#00ffff;
+}
+
+
+/* Pulse animation */
+@keyframes pulse{
+    from{ transform:scale(1); }
+    to{ transform:scale(1.08); }
+}
+
+/* Score text */
+p{
+    font-size:18px;
+    letter-spacing:1px;
+}
+
+/* Keys hint */
+p:last-child{
+    opacity:0.7;
+    font-size:14px;
 }
